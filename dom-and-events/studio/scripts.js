@@ -16,6 +16,8 @@ window.addEventListener('load', function() {
         document.getElementById('shuttleBackground').style.backgroundColor = 'green';
         let shuttleHeight = document.getElementById('spaceShuttleHeight');
         shuttleHeight.innerHTML = 0;
+        rocket.style.top = '130px';
+        rocket.style.right = '350px';
     })
 
     document.getElementById('missionAbort').addEventListener("click", function() {
@@ -24,12 +26,56 @@ window.addEventListener('load', function() {
             document.getElementById('shuttleBackground').style.backgroundColor = 'green';
             let shuttleHeight = document.getElementById('spaceShuttleHeight');
             shuttleHeight.innerHTML = 0;
+            rocket.style.top = '130px';
+            rocket.style.right = '350px';
         }
     })
 
     document.getElementById('right').addEventListener("click", function() {
         let rocket = document.getElementById('rocket')
-        rocket.style.right = parseInt(rocket.style.right.slice(0, -2)) + 10 + 'px'
-        console.log(rocket.style.right.slice(0, -2))
+        let rocketStyle = window.getComputedStyle(rocket)
+        let rightPosition = Number(rocketStyle.getPropertyValue('right').slice(0, -2))
+        rightPosition -= 10
+        rocket.style.right = rightPosition.toString() + 'px'
+        console.log(rightPosition)
     })
+
+    document.getElementById('left').addEventListener("click", function() {
+        let rocket = document.getElementById('rocket')
+        let rocketStyle = window.getComputedStyle(rocket)
+        let rightPosition = Number(rocketStyle.getPropertyValue('right').slice(0, -2))
+        rightPosition += 10
+        rocket.style.right = rightPosition.toString() + 'px'
+        console.log(rightPosition)
+    })
+
+    document.getElementById('up').addEventListener("click", function() {
+        let rocket = document.getElementById('rocket')
+        let rocketStyle = window.getComputedStyle(rocket)
+        let topPosition = Number(rocketStyle.getPropertyValue('top').slice(0, -2))
+        if (topPosition > 0) {
+            topPosition -= 10
+            rocket.style.top = topPosition.toString() + 'px'
+            let shuttleHeight = document.getElementById('spaceShuttleHeight');
+            let shuttleHeightNumber = Number(shuttleHeight.innerHTML)
+            shuttleHeightNumber += 10000
+            shuttleHeight.innerHTML = String(shuttleHeightNumber);
+        }
+        console.log(topPosition)
+    })
+
+    document.getElementById('down').addEventListener("click", function() {
+        let rocket = document.getElementById('rocket')
+        let rocketStyle = window.getComputedStyle(rocket)
+        let topPosition = Number(rocketStyle.getPropertyValue('top').slice(0, -2))
+        if (topPosition < 250) {
+            topPosition += 10
+            rocket.style.top = topPosition.toString() + 'px'
+            let shuttleHeight = document.getElementById('spaceShuttleHeight');
+            shuttleHeight.innerHTML -= 10000;
+        }
+        console.log(topPosition)
+    })
+
+
 })
